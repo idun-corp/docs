@@ -43,7 +43,7 @@ Every ServiceObject goes into a dispatching queue after creation, where routing 
 
 ### Conceptual diagram
 
-![image info](./assets/service-object-processing-pipeline.png)
+![Processing pipeline diagram](./assets/service-object-processing-pipeline.png)
 
 #### Processing pipeline steps
 
@@ -52,7 +52,7 @@ Every ServiceObject goes into a dispatching queue after creation, where routing 
 1. ServiceObject put into the specific dispatcher queue(s).
 1. Dedicated Dispatcher picks up ServiceObject and dispatches based on the provided information.
 
-## Using API
+## Consuming API
 
 Please see [Open API Specification (Swagger) docs](https://api.serviceobject.proptechos.com/api/swagger/ui) for details and to try it out. (Note that if you are running a dedicated instance of ProptechOS, your api and your OAS will have a separate proptechos.com subdomain).
 
@@ -60,6 +60,18 @@ Please see [Open API Specification (Swagger) docs](https://api.serviceobject.pro
 
 Authentication in ProptechOS uses OAuth 2.0 protocol. It can be separated into two categories:
 
-- **interactive authentication** - for applications accessing the API on behalf of user, like web apps and UIs
+- **implicit (interactive) authentication** - for applications accessing the API on behalf of user, like web apps and UIs
 - **client_credentials (deamon application) authentication** - for applications working without user interaction.
 See more in the Authentication section
+
+You need to have ProptechOS account in order to make authorized requests to this API.
+
+1. Click "Authorize" button in top right corner
+1. Leave "client_id" field empty and click the "select all" scopes link at the bottom
+1. Click "Authorize"
+
+![Service Object API authorization](./assets/api/service-object-api-authorize)
+
+### Working with Dispatchers
+
+Some dispatchers are provided by ProptechOS as a service: Email, SMS, so clients don't need to have their Email/SMS integration services.
