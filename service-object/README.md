@@ -12,7 +12,7 @@ There are 4 entities in the application
 
 ServiceObject is the main actor. ServiceObject could be produced directly via
 API or by configured alert based on sensor observation stream. Read more
-about [ProptechOS Alerts](proptechOS/alerts/README.md)
+about [ProptechOS Alerts](/proptechOS/alerts/README.md)
 
 ### Route
 
