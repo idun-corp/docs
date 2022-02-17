@@ -70,7 +70,7 @@ You need to have ProptechOS account in order to make authorized requests to this
 1. Leave "client_id" field empty and click the "select all" scopes link at the bottom
 1. Click "Authorize"
 
-![Service Object API authorization](./assets/api/service-object-api-authorize)
+![Service Object API authorization](./assets/api/service-object-api-authorize.gif)
 
 ### Working with Dispatchers
 
