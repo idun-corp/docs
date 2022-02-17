@@ -1,8 +1,16 @@
 # ServiceObject API User Guide
 
-Open source documentation of Idun products
+RealEstateCore and P8S ServiceObject - Alarm, Alert and Work Order model that aggregates different types of events and activities into a single set of APIs with **publish–subscribe** pattern.
 
 ## System Overview
+
+### Data flow diagram
+
+ServiceObject could be produced from different applications or users and depending on type of event ServiceObject could be consumed by multiple 3-party services.
+
+![ServiceObject flow](./assets/service-object-flow.png)
+
+### ServiceObject consumption overview
 
 ![ServiceObject overview](./assets/service-object-overview.png)
 
