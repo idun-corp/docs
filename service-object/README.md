@@ -76,7 +76,7 @@ You need to have ProptechOS account in order to make authorized requests to this
 
 Some dispatchers are provided by ProptechOS as a service: Email, SMS, so clients don't need to have their Email/SMS integration services.
 
-You can get list of available dispatchers by calling `/api/dispatchers` endpoint which should give use such response:
+You can get list of available dispatchers by calling `[GET] /api/dispatchers` endpoint which should give use such response:
 
 ![1-party DIspatchers](./assets/api/dispatchers/service-object-dispatchers-1party.png)
 
@@ -112,33 +112,33 @@ In Webhook Dispatcher configuration you can specify in `headers` property a list
 
 - **Basic**
 
-```json
-{
-  "configuration": {
-    "headers": {
-      "Authorization": "Basic dGVzdDphY2NvdW50"
-    },
-    "dispatcherType": "Webhook"
+  ```json
+  {
+    "configuration": {
+      "headers": {
+        "Authorization": "Basic dGVzdDphY2NvdW50"
+      },
+      "dispatcherType": "Webhook"
+    }
   }
-}
-```
+  ```
 
 - **API key**
 
-```json
-{
-  "configuration": {
-    "headers": {
-      "X-API-KEY": "P9&E?n$=LKh@-DnL"
-    },
-    "dispatcherType": "Webhook"
+  ```json
+  {
+    "configuration": {
+      "headers": {
+        "X-API-KEY": "P9&E?n$=LKh@-DnL"
+      },
+      "dispatcherType": "Webhook"
+    }
   }
-}
-```
+  ```
 
 #### Create Webhook dispatcher
 
-1. Choose an available "Webhook" example from `/api/dispatchers` endpoint.
+1. Choose an available "Webhook" example from `[POST] /api/dispatchers` endpoint.
 1. Provide dispatcher user-friendly name and configuration: `uri` and `headers`.
 
 Example:
@@ -161,3 +161,138 @@ Example:
 ## Working with Routes
 
 Routes provide ability to filter an ServiceObject creation stream and dispatch with one or more pre-configured dispatchers.
+
+### Route filtering
+
+Routing filter helps to precisely configure which ServiceObjects should be dispatched, for that need clients have the ability to build an [OData filter query](https://www.odata.org/getting-started/basic-tutorial/#queryData) that would be executed against each new ServiceObject and if it matches the filter then the ServiceObject is routed to specified dispatchers.
+
+### OData filter examples
+
+- **Match all ServiceObjects**
+
+  ```javascript
+  true
+  ```
+
+- **Filter by string property**
+
+  ```javascript
+  serviceStatus eq 'Acknowledged'
+  ```
+
+  ```javascript
+  title eq 'Title value'
+  ```
+
+  ```javascript
+  contains(title, 'phrase') and not contains(title, 'another phrase')
+  ```
+
+- **Filter by collection property**
+
+  ```javascript
+  aliases/any(alias: alias eq 'http://.../001')
+  ```
+
+  ```javascript
+  producedByDevices/any(device: device eq 'http://.../001') and relatedTo/any(space: space eq 'http://.../001')
+  ```
+
+- **Filter by tags**
+
+  ```javascript
+  tags/any(tag: tag/name eq 'tag name' and tag/value eq 'tag value')
+  ```
+
+### Route configuration examples
+
+Route can have multiple dispatcher specified inside `dispatchers` property.
+If you want to have `Email` and `SMS` dispatching, simply provide another dispatcher by providing it's `id` and required configuration.
+
+`Email` dispatcher example:
+
+```json
+{
+  "name": "Send Email",
+  "filter": "true",                             // ServiceObject filter
+  "dispatchers": {
+    "5a126627-d640-456b-8d0d-3c99bc965c32": {   // Email dispatcher id
+      "emails": [
+        "email@com"                             // target emails
+      ],
+      "emailTemplate": "Default",               // predefined template
+      "dispatcherType": "Email"
+    }
+  }
+}
+```
+
+`Email` and `SMS` dispatcher example:
+
+```json
+{
+  "name": "Send Email and SMS",
+  "filter": "aliases/any(alias: alias eq 'http://.../001')", // ServiceObject filter
+  "dispatchers": {
+    "5a126627-d640-456b-8d0d-3c99bc965c32": {   // Email dispatcher id
+      "emails": [
+        "email@com"                             // target emails
+      ],
+      "emailTemplate": "Default",               // predefined template
+      "dispatcherType": "Email"
+    },
+    "246c6117-603c-4ab2-a4d3-19c65889ded4": {   // SMS dispatcher id
+      "phoneNumbers": [
+        "+10000000000"                          // target phones
+      ],
+      "messageTemplate": "Title: {{title}}",    // SMS template
+      "dispatcherType": "SMS"
+    }
+  }
+}
+```
+
+### Create Route with `Email` dispatching
+
+1. Choose an available `Email` example from `[POST] /api/routes` endpoint.
+1. Fill-in `emails` property with list of emails you want ServiceObject to be sent to.
+1. Choose `emailTemplate` from predefined list of `Default` or `Alert`
+
+### Create Route with `SMS` dispatching
+
+1. Choose an available `SMS` example from `[POST] /api/routes` endpoint.
+1. Fill-in `phoneNumbers` property with list of phone numbers you want ServiceObject to be sent to.
+1. Provide `messageTemplate` of SMS you want to send.
+
+**Note:**
+
+Template allows you to provide variables like: `{{title}}`, `{{serviceType}}`, `{{tags.name}}` which will be substituted with ServiceObject real values before sending. You can see details on how build property with [JSON path](https://www.newtonsoft.com/json/help/html/QueryJsonSelectToken.htm).
+
+SMS template example:
+
+```json
+{
+  "messageTemplate": "Alert '{{tags.alertName}}' was triggered.",
+  "dispatcherType": "SMS"
+}
+```
+
+### Create Route with `Webhook` dispatching
+
+1. Choose an available `Webhook` example from `[POST] /api/routes` endpoint.
+1. Replace existing `id` key inside `dispatchers` property with
+ `Webhook` dispatcher `id`, you have recently created.
+
+`Webhook` dispatcher example:
+
+```json
+{
+  "name": "Call endpoint",
+  "filter": "tags/any(tag: tag/name eq 'Alert'", // ServiceObject filter
+  "dispatchers": {
+    "<your-dispatcher-id>": {           // Custom Webhook dispatcher id
+      "dispatcherType": "Webhook"
+    }
+  }
+}
+```
