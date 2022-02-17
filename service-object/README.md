@@ -52,16 +52,16 @@ Every ServiceObject goes into a dispatching queue after creation, where routing 
 1. ServiceObject put into the specific dispatcher queue(s).
 1. Dedicated Dispatcher picks up ServiceObject and dispatches based on the provided information.
 
-## Consuming API
+# Consuming API
 
 Please see [Open API Specification (Swagger) docs](https://api.serviceobject.proptechos.com/api/swagger/ui) for details and to try it out. (Note that if you are running a dedicated instance of ProptechOS, your api and your OAS will have a separate proptechos.com subdomain).
 
-### Authentication
+## Authentication
 
 Authentication in ProptechOS uses OAuth 2.0 protocol. It can be separated into two categories:
 
-- **implicit (interactive) authentication** - for applications accessing the API on behalf of user, like web apps and UIs
-- **client_credentials (deamon application) authentication** - for applications working without user interaction.
+- **implicit** (interactive) authentication - for applications accessing the API on behalf of user, like web apps and UIs
+- **client_credentials** (deamon application) authentication - for applications working without user interaction.
 See more in the Authentication section
 
 You need to have ProptechOS account in order to make authorized requests to this API.
@@ -72,6 +72,87 @@ You need to have ProptechOS account in order to make authorized requests to this
 
 ![Service Object API authorization](./assets/api/service-object-api-authorize.gif)
 
-### Working with Dispatchers
+## Working with Dispatchers
 
 Some dispatchers are provided by ProptechOS as a service: Email, SMS, so clients don't need to have their Email/SMS integration services.
+
+You can get list of available dispatchers by calling `/api/dispatchers` endpoint which should give use such response:
+
+![1-party DIspatchers](./assets/api/dispatchers/service-object-dispatchers-1party.png)
+
+**Note:**
+
+`id` of the dispatcher is specified in routes to allow reuse of the same dispatcher in multiple routing scenarios.
+`configuration` of the dispatcher always has a `dispatcherType` to force
+validity of configuration properties depending of dispatcher type.
+
+### Dispatcher sensitive data storage
+
+Dispatcher sensitive data specified in configuration like API keys, credentials
+is always encrypted before it passes to storage devices and is only decrypted on short-time period right before using it to authorize to 3-party services. So you can be sure that your credentials are never exposed to other services in a raw representation.
+
+### Working with custom Webhook dispatcher
+
+Custom dispatcher are required when you do an integration with your API
+service. The most common use-case would be the [Webhook](https://sendgrid.com/blog/whats-webhook/) integration. Everytime when ServiceObject is created and route is matched for this item, Webhook dipsatcher will try to send `[POST]` request to the psecified endpoint with ServiceObject in a request body.
+
+#### Retry policy
+
+A retry policy is the most basic type of exception and error handling. If an initial request timed out or failed (any request that results in a 429 or 5xx response), this policy defines whether the action should retry. By default, all actions retry 4 additional times over 20-second intervals. So if the first request receives a 500 Internal Server Error response, the workflow engine pauses for 20 seconds, and attempts the request again. If after all retries, the response is still an exception or failure, the workflow continues and marks the action status as Failed.
+
+You can always check the dispatch log to get more information about dispatch status and captured responses from webhook URL.
+
+#### Webhook endpoint authorization
+
+In order to create Webhook dispatcher you need to have API service that has publically accessible `https` URL like: `https://api.service.com/serviceobject-listener`. In addition to URL we encourage you to have request header based authorization established for your endpoint so you can avoid unintended/unauthorized requests to your webhook URL.
+
+In Webhook Dispatcher configuration you can specify in `headers` property a list of header that will be sent to your webhook URL, so authorization could be done in multiple ways:
+
+- **Basic**
+
+```json
+{
+  "configuration": {
+    "headers": {
+      "Authorization": "Basic dGVzdDphY2NvdW50"
+    },
+    "dispatcherType": "Webhook"
+  }
+}
+```
+
+- **API key**
+
+```json
+{
+  "configuration": {
+    "headers": {
+      "X-API-KEY": "P9&E?n$=LKh@-DnL"
+    },
+    "dispatcherType": "Webhook"
+  }
+}
+```
+
+#### Create Webhook dispatcher
+
+1. Choose an available "Webhook" example from `/api/dispatchers` endpoint.
+1. Provide dispatcher user-friendly name and configuration: `uri` and `headers`.
+
+Example:
+
+```json
+{
+  "name": "My Webhook dispatcher",
+  "configuration": {
+    "uri": "https://api.service.com/serviceobject-listener",
+    "headers": {
+      "Authorization": "Basic dGVzdDphY2NvdW50"
+    },
+    "dispatcherType": "Webhook"
+  }
+}
+```
+
+![Service Object API - Create Webhook Dispatcher](./assets/api/dispatchers/service-object-dispatchers-webhook.gif)
+
