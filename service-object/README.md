@@ -80,6 +80,8 @@ You can get list of available dispatchers by calling `/api/dispatchers` endpoint
 
 ![1-party DIspatchers](./assets/api/dispatchers/service-object-dispatchers-1party.png)
 
+You can test API with one of existing SMS or Email dispatcher, so you can go directly to [Working with Routes](#working-with-routes) section of this document.
+
 **Note:**
 
 `id` of the dispatcher is specified in routes to allow reuse of the same dispatcher in multiple routing scenarios.
@@ -156,3 +158,6 @@ Example:
 
 ![Service Object API - Create Webhook Dispatcher](./assets/api/dispatchers/service-object-dispatchers-webhook.gif)
 
+## Working with Routes
+
+Routes provide ability to filter an ServiceObject creation stream and dispatch with one or more pre-configured dispatchers.
