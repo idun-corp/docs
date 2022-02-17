@@ -51,3 +51,15 @@ Every ServiceObject goes into a dispatching queue after creation, where routing 
 1. Router picks up a ServiceObject and tests for existing route filters.
 1. ServiceObject put into the specific dispatcher queue(s).
 1. Dedicated Dispatcher picks up ServiceObject and dispatches based on the provided information.
+
+## Using API
+
+Please see [Open API Specification (Swagger) docs](https://api.serviceobject.proptechos.com/api/swagger/ui) for details and to try it out. (Note that if you are running a dedicated instance of ProptechOS, your api and your OAS will have a separate proptechos.com subdomain).
+
+### Authentication
+
+Authentication in ProptechOS uses OAuth 2.0 protocol. It can be separated into two categories:
+
+- **interactive authentication** - for applications accessing the API on behalf of user, like web apps and UIs
+- **client_credentials (deamon application) authentication** - for applications working without user interaction.
+See more in the Authentication section
