@@ -417,4 +417,53 @@ Example: category=cleaning, needscleaning=windows
 
 To bring more flexebility in ServiceObject filtering expressions you can use OData filter queries as described in [ServiceObject filtering inside Routes](#serviceobject-filtering-inside-routes). To test your filter expressions you can use `[GET] /api/serviceobject` endpoint with provided `$filter` query parameter which contains your [OData filter query](https://www.odata.org/getting-started/basic-tutorial/#queryData).
 
-### Paging and Sorting ServiceObjects
+### Paging ServiceObjects
+
+You can control on how many items you get in response by providing
+
+- `page` - Zero-based page index
+
+- `pageSize` - The size of the page to be returned
+
+**Note:**
+
+For some cases you want to know how many items are matching your filter criteria, so for this case you can build a lightweight response by providing `pageSize=1` which will return only 1 item in response but you'll be able to read `count` property in response too, which gives you total count of items available.
+
+### Sorting ServiceObjects
+
+In order to sort ServiceObjects in response you can use `$orderBy` query parameter which contains a comma-separated list of the ServiceObject properties you want to order by. In addition you can specify sort order between `asc` - ascending oder, `desc` - descending order for multiple provided properties. If you dont specify sort order, then `asc` order is used by default.
+
+- `$orderBy` - Comma-separated list of the ServiceObject properties to order by
+
+```url
+Example: serviceType, severity desc, serviceStatus asc
+```
+
+### Shaping ServiceObjects response model
+
+At some circumstances you dont want to get all properties of ServiceObject in a responce which may lead to extensive amount of network traffic produced if querying larger amounts of data in one page. In this case you can use `$select` query parameter to specify comma-separated list of the ServiceObject properties to return in a response, therefore only those properties will be populated in ServiceObject response model and other properties will be ignored.
+
+- `$select` - Comma-separated list of the ServiceObject properties to return in a response
+
+```url
+Example: id, title, serviceType, severity, serviceStatus
+```
+
+ServiceObjects Response:
+
+```json
+{
+  "count": 100,
+  "items": [
+    {
+      "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "title": "string",
+      "serviceStatus": "UnAcknowledged",
+      "severity": "AlarmMinor",
+      "serviceType": "WorkOrder",
+    }
+  ]
+}
+```
+
+### Creating ServiceObjects
