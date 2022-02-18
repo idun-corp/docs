@@ -548,3 +548,13 @@ For simplitity, we introduced dedicated endpoints to update ServiceObject `servi
 - `/api/serviceobject/status/{status}` - to update `serviceStatus` of ServiceObjects in bulk
 
 Such endpoints do not require `eTag` to be provided.
+
+## Advanced
+
+### Working with Dispatch Logs
+
+Whenever a Dispatcher executes it's job (sends SMS, email or creates a work order in EstateLogs, etc.) a Dispatch Log with the current timestamp is saved to the ServiceObject database.
+
+#### **Note**
+
+Dispatch logger has a specific behavior when the Dispatcher type is Webhook. During operation, the Dispatch Log record is saved with the status InProgress. Then the application makes an API call to the endpoint specified in the Dispatcher configuration. This can take some time while the application waits for the response. Once the response is received the dispatch log record is updated with the correct status (`Succeeded`, `Failed`) and response message.
