@@ -168,7 +168,8 @@ Example:
 
 ## Working with Routes
 
-Routes provide ability to filter an ServiceObject creation stream and dispatch with one or more pre-configured dispatchers.
+Routes provide ability to filter an ServiceObject creation stream and dispatch with one or more pre-configured dispatchers. The `dispatchers` property in the Route body is a `Map` where `Key` is a Dispatcher identifier and `Value` is an object with additional to a Dispatcher data. Any object must contain the `dispatcherType` property to force
+validity of configuration properties depending of dispatcher type.
 
 ### Route filtering
 
