@@ -62,7 +62,7 @@ Every ServiceObject goes into a dispatching queue after creation, where routing 
 
 # Consuming API
 
-Please see [Open API Specification (Swagger) docs](https://api.serviceobject.proptechos.com/api/swagger/ui) for details and to try it out. (Note that if you are running a dedicated instance of ProptechOS, your api and your OAS will have a separate proptechos.com subdomain).
+Please see [Open API Specification (Swagger) docs](https://api.serviceobject.proptechos.com/api/swagger/ui) for details and to try it out. (Note that if you are running a dedicated instance of ProptechOS, your API and your OAS will have a separate proptechos.com subdomain).
 
 ## Authentication
 
@@ -468,7 +468,7 @@ ServiceObjects Response:
 
 ### Creating ServiceObjects
 
-You can create ServiceObject by sumbitting `[POST] /api/serviceobject` request. You have to provide required field to complete the request:
+You can create ServiceObject by submitting `[POST] /api/serviceobject` request. You have to provide required fields to complete the request:
 
 - `title` - Human-readable title of the ServiceObject
 
@@ -478,7 +478,7 @@ You can create ServiceObject by sumbitting `[POST] /api/serviceobject` request. 
 Example: https://proptechos.com/api/realestatecomponent/a6c33fee-a408-4cba-97c0-659742f337c0
 ```
 
-**Notes:**
+**Notes**
 
 List of optional parameters you can provide during creation:
 
@@ -486,7 +486,7 @@ List of optional parameters you can provide during creation:
 
 - `serviceType` - Type of service associated with this ServiceObject. Available values `WorkOrder, ErrorReport, Alert, Notification`. Default value - `WorkOrder`
 
-- `createdAt` - The timestamp indicates when the ServiceObject was created. If not specified - the current UTC time will be set. Providing this value might be handy when you want to store actual time of event rather time when ServiceObject was created for the event
+- `createdAt` - The timestamp indicates when the ServiceObject was created. If not specified - the current UTC time will be set. Providing this value might be handy when you want to store actual time of event rather than time when ServiceObject was created for the event
 
 - `producedByDevices` - List of Devices URIs that produced this ServiceObject. Should be `NULL` if created by Agent.
 
@@ -510,7 +510,7 @@ Alias Namespace in ProptechOS:
 },
 ```
 
-- `tags` - Map (key, value) of custom defined tags/propetries associated to this ServiceObject
+- `tags` - Map (key, value) of custom defined tags/properties associated to this ServiceObject
 
 ```json
 {
