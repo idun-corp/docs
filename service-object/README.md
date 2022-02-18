@@ -92,7 +92,7 @@ You can get list of available dispatchers by calling `[GET] /api/dispatchers` en
 
 You can test API with one of existing SMS or Email dispatcher, so you can go directly to [Working with Routes](#working-with-routes) section of this document.
 
-**Note**
+#### **Note**
 
 `id` of the dispatcher is specified in routes to allow reuse of the same dispatcher in multiple routing scenarios.
 `configuration` of the dispatcher always has a `dispatcherType` to force
@@ -275,7 +275,7 @@ If you want to have `Email` and `SMS` dispatching, simply add another dispatcher
 1. Fill in `phoneNumbers` property with list of phone numbers you want ServiceObject to be sent to.
 1. Provide `messageTemplate` of SMS you want to send.
 
-**Note**
+#### **Note**
 
 Template allows you to provide variables like: `{{title}}`, `{{serviceType}}`, `{{tags.name}}` which will be substituted with ServiceObject real values before sending. You can see details on how to build property path with [JSON path](https://www.newtonsoft.com/json/help/html/QueryJsonSelectToken.htm).
 
@@ -480,7 +480,7 @@ You can create ServiceObject by submitting `[POST] /api/serviceobject` request. 
 Example: https://proptechos.com/api/realestatecomponent/a6c33fee-a408-4cba-97c0-659742f337c0
 ```
 
-**Notes**
+#### **Note**
 
 List of optional parameters you can provide during creation:
 
@@ -530,8 +530,21 @@ Alias Namespace in ProptechOS:
 
 You can update existing ServiceObject by sumbitting `[PUT] /api/serviceobject` request. In addition to required fields that you specify during creation `id, title, relatedTo`, you have to specify:
 
-- `eTag` - Indicates ServiceObject's version. It is compared with the version in the repository when performing updates.
+- `eTag` - Indicates ServiceObject's version.
 
-**Note:**
+#### **Note**
 
-ETag is a common practice 
+ETag (Entity Tag) is a versioning approach that attaches `eTag` (version number) for existing ServiceObject which you should provide back during update.
+Provided version is compared with the stored version in the repository.
+
+This approach is guarding against potential data corruption happened due to sumiltaneous updates performed by different agents.
+
+Version mismatch indicates that ServiceObject was updated during the time when ServiceObject was read and submitted back with updates. Such request will be rejected and you have to read the latest version of the ServiceObject and perform update again.
+
+For simplitity, we introduced dedicated endpoints to update ServiceObject `serviceStatus` via:
+
+- `/api/serviceobject/{id}/status/{status}` - to update `serviceStatus` of ServiceObject by its `id`
+
+- `/api/serviceobject/status/{status}` - to update `serviceStatus` of ServiceObjects in bulk
+
+Such endpoints do not require `eTag` to be provided.
