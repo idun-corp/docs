@@ -171,7 +171,7 @@ Example:
 Routes provide ability to filter an ServiceObject creation stream and dispatch with one or more pre-configured dispatchers. The `dispatchers` property in the Route body is a `Map` where `Key` is a Dispatcher identifier and `Value` is an object with additional to a Dispatcher data. Any object must contain the `dispatcherType` property to force
 validity of configuration properties depending of dispatcher type.
 
-### Route filtering
+### ServiceObject filtering inside Routes
 
 Routing filter helps to precisely configure which ServiceObjects should be dispatched, for that need clients have the ability to build an [OData filter query](https://www.odata.org/getting-started/basic-tutorial/#queryData) that would be executed against each new ServiceObject and if it matches the filter then the ServiceObject is routed to specified dispatchers. More details on available [filter operators](http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part2-url-conventions/odata-v4.0-errata03-os-part2-url-conventions-complete.html#_Filter_System_Query).
 
@@ -325,3 +325,96 @@ ServiceObject example:
 
 ## Working with ServiceObjects
 
+You can get list of available ServiceObjects by calling `[GET] /api/serviceobject` endpoint. This endpoint contains extended filtering by optional query parameters, sorting, paging and response model shaping.
+
+### Filtering ServiceObjects with optional query parameters
+
+Filtering of ServiceObjects could be done via such optional query parameters:
+
+- `serviceObjectIds` - Comma-separated list of ServiceObjects UUID identifiers
+
+```url
+Example: a6c33fee-a408-4cba-97c0-659742f337c0, 0ae31072-26c4-49c4-879b-a93face20d4f
+```
+
+- `aliases` - Comma-separated list of ServiceObjects aliases
+
+```url
+Example: https://ns.proptechos.com/bim/QWERTY, https://ns.proptechos.com/bim/12345
+```
+
+- `title` - phrase that ServiceObject title should contain
+
+- `createdByAgent` - UUID identifier of the Agent that created the ServiceObject
+
+- `createdAfter` - The UTC timestamp after which the ServiceObject was created
+
+```url
+Example: 2020-12-01T00:00:00Z
+```
+
+- `updatedByAgent` - UUID identifier of the Agent that last updated the ServiceObject
+
+- `updatedAfter` - The UTC timestamp after which the ServiceObject was last updated
+
+```url
+Example: 2020-12-01T00:00:00Z
+```
+
+- `acknowledgedByAgent` - UUID identifier of the Agent that last acknowledged the ServiceObject
+
+- `acknowledgedAfter` - The UTC timestamp after which the ServiceObject was last acknowledged
+
+```url
+Example: 2020-12-01T00:00:00Z
+```
+
+- `closedByAgent` - UUID identifier of the Agent that closed the ServiceObject
+
+- `closedAfter` - The UTC timestamp after which the ServiceObject was closed
+
+```url
+Example: 2020-12-01T00:00:00Z
+```
+
+- `serviceStatus` - Service status of the ServiceObject
+
+```url
+Available values : UnAcknowledged, Acknowledged, Closed
+```
+
+- `severity` - Severity of the ServiceObject. See [REC QuantityKind](https://doc.realestatecore.io/3.3/core.html#QuantityKind) for details
+
+```url
+Available values : AlarmMinor, AlarmMajor, AlarmSevere
+```
+
+- `serviceStatus` - Service type of the ServiceObject
+
+```url
+Available values : WorkOrder, ErrorReport, Alert, Notification
+```
+
+- `producedByDevices` - Comma-separated list of Devices URIs that produced the ServiceObject
+
+```url
+Example: https://proptechos.com/api/device/a6c33fee-a408-4cba-97c0-659742f337c0, https://proptechos.com/api/sensor/a6c33fee-a408-4cba-97c0-659742f337c0
+```
+
+- `relatedTo` - Comma-separated list of Twin URIs related to this ServiceObject
+
+```url
+Example: https://proptechos.com/api/realestatecomponent/a6c33fee-a408-4cba-97c0-659742f337c0, https://proptechos.com/api/room/a6c33fee-a408-4cba-97c0-659742f337c0
+```
+
+- `tags` - Comma-separated list of Tags of the ServiceObject. Note: If you specify more than one Tag the ServiceObject should contain all these Tags to match the filter
+
+```url
+Example: category=cleaning, needscleaning=windows
+```
+
+### Filtering ServiceObjects with OData filter query
+
+To bring more flexebility in ServiceObject filtering expressions you can use OData filter queries as described in [ServiceObject filtering inside Routes](#serviceobject-filtering-inside-routes). To test your filter expressions you can use `[GET] /api/serviceobject` endpoint with provided `$filter` query parameter which contains your [OData filter query](https://www.odata.org/getting-started/basic-tutorial/#queryData).
+
+### Paging and Sorting ServiceObjects
