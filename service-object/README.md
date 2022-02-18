@@ -98,8 +98,8 @@ validity of configuration properties depending on dispatcher type.
 
 ### Dispatcher sensitive data storage
 
-Dispatcher sensitive data specified in configuration like API keys, credentials
-are always encrypted before it passes to storage devices and is only decrypted on short-time period right before using it to authorize to 3-party services. So you can be sure that your credentials are never exposed to other services in a raw representation.
+Dispatcher sensitive data specified in configuration (like API keys, credentials)
+is always encrypted before it passes to storage devices and is only decrypted on short-time period right before using it to authorize to 3-party services. So you can be sure that your credentials are never exposed to other services in a raw representation.
 
 ### Working with custom Webhook dispatcher
 
