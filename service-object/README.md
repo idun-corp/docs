@@ -41,7 +41,7 @@ ServiceObject API develops integration with different dispatcher types and the l
 Dispatch Log contains the information about the ServiceObject dispatching.
 Whenever ServiceObject is processed by Router, each dispatcher creates
 a log entry with dispatch status and details. This information can be used as
-debug information to analyze unhealty behavior of 3-party service.
+debug information to analyze unhealthy behavior of 3-party service.
 
 ## Architecture Overview
 
@@ -94,12 +94,12 @@ You can test API with one of existing SMS or Email dispatcher, so you can go dir
 
 `id` of the dispatcher is specified in routes to allow reuse of the same dispatcher in multiple routing scenarios.
 `configuration` of the dispatcher always has a `dispatcherType` to force
-validity of configuration properties depending of dispatcher type.
+validity of configuration properties depending on dispatcher type.
 
 ### Dispatcher sensitive data storage
 
 Dispatcher sensitive data specified in configuration like API keys, credentials
-is always encrypted before it passes to storage devices and is only decrypted on short-time period right before using it to authorize to 3-party services. So you can be sure that your credentials are never exposed to other services in a raw representation.
+are always encrypted before it passes to storage devices and is only decrypted on short-time period right before using it to authorize to 3-party services. So you can be sure that your credentials are never exposed to other services in a raw representation.
 
 ### Working with custom Webhook dispatcher
 
