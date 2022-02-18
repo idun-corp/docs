@@ -47,7 +47,9 @@ debug information to analyze unhealthy behavior of 3-party service.
 
 ### Processing pipeline
 
-Every ServiceObject goes into a dispatching queue after creation, where routing is taken into account. Router gathers all available routes and tests each service object in the queue by the route filter speficied during route creation and if there is a match, the router puts the ServiceObject into a dedicated dispatching queue, therefore malfunctioning dispatcher won't affect other dispatchers and each dispatcher will have their own dispatching time, retry on failure and all dispatchers will be processing items in parallel.
+Every ServiceObject goes into a dispatching queue after creation, where routing is taken into account. Router gathers all available routes and tests each service object in the queue by the route filter speficied during route creation.
+
+If there is a match, the router puts the ServiceObject into a dedicated dispatching queue, therefore malfunctioning dispatcher won't affect other dispatchers and each dispatcher will have their own dispatching time, retry on failure and all dispatchers will be processing items in parallel.
 
 ### Conceptual diagram
 
@@ -216,7 +218,7 @@ Routing filter helps to precisely configure which ServiceObjects should be dispa
 ### Route configuration examples
 
 Route can have multiple dispatcher specified inside `dispatchers` property.
-If you want to have `Email` and `SMS` dispatching, simply provide another dispatcher by providing it's `id` and required configuration.
+If you want to have `Email` and `SMS` dispatching, simply add another dispatcher by providing it's `id` and required configuration.
 
 `Email` dispatcher example:
 
@@ -275,7 +277,7 @@ If you want to have `Email` and `SMS` dispatching, simply provide another dispat
 
 **Note:**
 
-Template allows you to provide variables like: `{{title}}`, `{{serviceType}}`, `{{tags.name}}` which will be substituted with ServiceObject real values before sending. You can see details on how build property with [JSON path](https://www.newtonsoft.com/json/help/html/QueryJsonSelectToken.htm).
+Template allows you to provide variables like: `{{title}}`, `{{serviceType}}`, `{{tags.name}}` which will be substituted with ServiceObject real values before sending. You can see details on how to build property path with [JSON path](https://www.newtonsoft.com/json/help/html/QueryJsonSelectToken.htm).
 
 **Warning:**
 
@@ -468,7 +470,7 @@ ServiceObjects Response:
 
 ### Creating ServiceObjects
 
-You can create ServiceObject by sumbitting `[POST] /api/serviceobject` request. You have to provide required field to complete the request:
+You can create ServiceObject by sumbitting `[POST] /api/serviceobject` request. You have to provide required fields to complete the request:
 
 - `title` - Human-readable title of the ServiceObject
 
@@ -526,3 +528,10 @@ Alias Namespace in ProptechOS:
 
 ### Updating ServiceObjects
 
+You can update existing ServiceObject by sumbitting `[PUT] /api/serviceobject` request. In addition to required fields that you specify during creation `id, title, relatedTo`, you have to specify:
+
+- `eTag` - Indicates ServiceObject's version. It is compared with the version in the repository when performing updates.
+
+**Note:**
+
+ETag is a common practice 
