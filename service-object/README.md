@@ -172,7 +172,7 @@ Routes provide ability to filter an ServiceObject creation stream and dispatch w
 
 ### Route filtering
 
-Routing filter helps to precisely configure which ServiceObjects should be dispatched, for that need clients have the ability to build an [OData filter query](https://www.odata.org/getting-started/basic-tutorial/#queryData) that would be executed against each new ServiceObject and if it matches the filter then the ServiceObject is routed to specified dispatchers.
+Routing filter helps to precisely configure which ServiceObjects should be dispatched, for that need clients have the ability to build an [OData filter query](https://www.odata.org/getting-started/basic-tutorial/#queryData) that would be executed against each new ServiceObject and if it matches the filter then the ServiceObject is routed to specified dispatchers. More details on available [filter operators](http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part2-url-conventions/odata-v4.0-errata03-os-part2-url-conventions-complete.html#_Filter_System_Query).
 
 ### OData filter examples
 
@@ -276,14 +276,31 @@ If you want to have `Email` and `SMS` dispatching, simply provide another dispat
 
 Template allows you to provide variables like: `{{title}}`, `{{serviceType}}`, `{{tags.name}}` which will be substituted with ServiceObject real values before sending. You can see details on how build property with [JSON path](https://www.newtonsoft.com/json/help/html/QueryJsonSelectToken.htm).
 
+**Warning:**
+
+Message exceeding 160 characters in length will be truncated. If provided variable is missing in ServiceObject, then {{variable}} text won't be substituted.
+
 SMS template example:
 
 ```json
 {
-  "messageTemplate": "Alert '{{tags.alertName}}' was triggered.",
+  "messageTemplate": "{{title}}: {{tags.threshold}} threshold was breached.",
   "dispatcherType": "SMS"
 }
 ```
+
+ServiceObject example:
+
+```json
+{
+  "title": "Temperature Alert",
+  "tags": {
+    "threshold": "25°C",
+  }
+}
+```
+
+**Result SMS text**: `Temperature Alert: 25°C threshold was breached.`
 
 ### Create Route with `Webhook` dispatching
 
@@ -304,3 +321,6 @@ SMS template example:
   }
 }
 ```
+
+## Working with ServiceObjects
+
