@@ -64,7 +64,7 @@ If there is a match, the router puts the ServiceObject into a dedicated dispatch
 
 # Consuming API
 
-Please see [Open API Specification (Swagger) docs](https://api.serviceobject.proptechos.com/api/swagger/ui) for details and to try it out. (Note that if you are running a dedicated instance of ProptechOS, your api and your OAS will have a separate proptechos.com subdomain).
+Please see [Open API Specification (Swagger) docs](https://api.serviceobject.proptechos.com/api/swagger/ui) for details and to try it out. (Note that if you are running a dedicated instance of ProptechOS, your API and your OAS will have a separate proptechos.com subdomain).
 
 ## Authentication
 
@@ -92,7 +92,7 @@ You can get list of available dispatchers by calling `[GET] /api/dispatchers` en
 
 You can test API with one of existing SMS or Email dispatcher, so you can go directly to [Working with Routes](#working-with-routes) section of this document.
 
-**Note:**
+**Note**
 
 `id` of the dispatcher is specified in routes to allow reuse of the same dispatcher in multiple routing scenarios.
 `configuration` of the dispatcher always has a `dispatcherType` to force
@@ -105,8 +105,8 @@ is always encrypted before it passes to storage devices and is only decrypted on
 
 ### Working with custom Webhook dispatcher
 
-Custom dispatcher are required when you do an integration with your API
-service. The most common use-case would be the [Webhook](https://sendgrid.com/blog/whats-webhook/) integration. Everytime when ServiceObject is created and route is matched for this item, Webhook dipsatcher will try to send `[POST]` request to the psecified endpoint with ServiceObject in a request body.
+Custom dispatcher is required when you do an integration with your API
+service. The most common use-case would be the [Webhook](https://sendgrid.com/blog/whats-webhook/) integration. Everytime when ServiceObject is created and route is matched for this item, Webhook dispatcher will try to send `[POST]` request to the specified endpoint with ServiceObject in a request body.
 
 #### Retry policy
 
@@ -266,16 +266,16 @@ If you want to have `Email` and `SMS` dispatching, simply add another dispatcher
 ### Create Route with `Email` dispatching
 
 1. Choose an available `Email` example from `[POST] /api/routes` endpoint.
-1. Fill-in `emails` property with list of emails you want ServiceObject to be sent to.
+1. Fill in `emails` property with list of emails you want ServiceObject to be sent to.
 1. Choose `emailTemplate` from predefined list of `Default` or `Alert`
 
 ### Create Route with `SMS` dispatching
 
 1. Choose an available `SMS` example from `[POST] /api/routes` endpoint.
-1. Fill-in `phoneNumbers` property with list of phone numbers you want ServiceObject to be sent to.
+1. Fill in `phoneNumbers` property with list of phone numbers you want ServiceObject to be sent to.
 1. Provide `messageTemplate` of SMS you want to send.
 
-**Note:**
+**Note**
 
 Template allows you to provide variables like: `{{title}}`, `{{serviceType}}`, `{{tags.name}}` which will be substituted with ServiceObject real values before sending. You can see details on how to build property path with [JSON path](https://www.newtonsoft.com/json/help/html/QueryJsonSelectToken.htm).
 
@@ -417,7 +417,7 @@ Example: category=cleaning, needscleaning=windows
 
 ### Filtering ServiceObjects with OData filter query
 
-To bring more flexebility in ServiceObject filtering expressions you can use OData filter queries as described in [ServiceObject filtering inside Routes](#serviceobject-filtering-inside-routes). To test your filter expressions you can use `[GET] /api/serviceobject` endpoint with provided `$filter` query parameter which contains your [OData filter query](https://www.odata.org/getting-started/basic-tutorial/#queryData).
+To bring more flexibility in ServiceObject filtering expressions you can use OData filter queries as described in [ServiceObject filtering inside Routes](#serviceobject-filtering-inside-routes). To test your filter expressions you can use `[GET] /api/serviceobject` endpoint with provided `$filter` query parameter which contains your [OData filter query](https://www.odata.org/getting-started/basic-tutorial/#queryData).
 
 ### Paging ServiceObjects
 
@@ -433,7 +433,7 @@ For some cases you want to know how many items are matching your filter criteria
 
 ### Sorting ServiceObjects
 
-In order to sort ServiceObjects in response you can use `$orderBy` query parameter which contains a comma-separated list of the ServiceObject properties you want to order by. In addition you can specify sort order between `asc` - ascending oder, `desc` - descending order for multiple provided properties. If you dont specify sort order, then `asc` order is used by default.
+In order to sort ServiceObjects in response you can use `$orderBy` query parameter which contains a comma-separated list of the ServiceObject properties you want to order by. In addition you can specify sort order between `asc` - ascending order, `desc` - descending order for multiple provided properties. If you dont specify sort order, then `asc` order is used by default.
 
 - `$orderBy` - Comma-separated list of the ServiceObject properties to order by
 
@@ -443,7 +443,7 @@ Example: serviceType, severity desc, serviceStatus asc
 
 ### Shaping ServiceObjects response model
 
-At some circumstances you dont want to get all properties of ServiceObject in a responce which may lead to extensive amount of network traffic produced if querying larger amounts of data in one page. In this case you can use `$select` query parameter to specify comma-separated list of the ServiceObject properties to return in a response, therefore only those properties will be populated in ServiceObject response model and other properties will be ignored.
+At some circumstances you don't want to get all properties of ServiceObject in a response which may lead to extensive amount of network traffic produced if querying larger amounts of data in one page. In this case you can use `$select` query parameter to specify comma-separated list of the ServiceObject properties to return in a response, therefore only those properties will be populated in ServiceObject response model and other properties will be ignored.
 
 - `$select` - Comma-separated list of the ServiceObject properties to return in a response
 
@@ -470,7 +470,7 @@ ServiceObjects Response:
 
 ### Creating ServiceObjects
 
-You can create ServiceObject by sumbitting `[POST] /api/serviceobject` request. You have to provide required fields to complete the request:
+You can create ServiceObject by submitting `[POST] /api/serviceobject` request. You have to provide required fields to complete the request:
 
 - `title` - Human-readable title of the ServiceObject
 
@@ -480,7 +480,7 @@ You can create ServiceObject by sumbitting `[POST] /api/serviceobject` request. 
 Example: https://proptechos.com/api/realestatecomponent/a6c33fee-a408-4cba-97c0-659742f337c0
 ```
 
-**Notes:**
+**Notes**
 
 List of optional parameters you can provide during creation:
 
@@ -488,7 +488,7 @@ List of optional parameters you can provide during creation:
 
 - `serviceType` - Type of service associated with this ServiceObject. Available values `WorkOrder, ErrorReport, Alert, Notification`. Default value - `WorkOrder`
 
-- `createdAt` - The timestamp indicates when the ServiceObject was created. If not specified - the current UTC time will be set. Providing this value might be handy when you want to store actual time of event rather time when ServiceObject was created for the event
+- `createdAt` - The timestamp indicates when the ServiceObject was created. If not specified - the current UTC time will be set. Providing this value might be handy when you want to store actual time of event rather than time when ServiceObject was created for the event
 
 - `producedByDevices` - List of Devices URIs that produced this ServiceObject. Should be `NULL` if created by Agent.
 
@@ -512,7 +512,7 @@ Alias Namespace in ProptechOS:
 },
 ```
 
-- `tags` - Map (key, value) of custom defined tags/propetries associated to this ServiceObject
+- `tags` - Map (key, value) of custom defined tags/properties associated to this ServiceObject
 
 ```json
 {
