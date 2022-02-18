@@ -543,7 +543,7 @@ Version mismatch indicates that ServiceObject was updated during the time when S
 
 For simplitity, we introduced dedicated endpoints to update ServiceObject `serviceStatus` via:
 
-- `/api/serviceobject/{id}/status/{status}` - to update `serviceStatus` of ServiceObject by its `id`
+- `/api/serviceobject/{id}/status/{status}` - to update `serviceStatus` of ServiceObject by it's `id`
 
 - `/api/serviceobject/status/{status}` - to update `serviceStatus` of ServiceObjects in bulk
 
