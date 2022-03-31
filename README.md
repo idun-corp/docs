@@ -8,9 +8,15 @@
 The streaming API lets you explore and edit the knowledge graph, query telemetry and execute actuations.  
 [Consuming Idun ProptechOS REST API](ProptechOS-Api)
 
+### Service Object API
+[Using the Sergvice Object API](ProptechOS-Service-Object)
+
 ## Streaming API
 The streaming API lets you consume telemetry.  
 [Consuming Idun ProptechOS Streaming API](ProptechOS-Streaming-Api)
+
+### Delta Stream
+[Consume the twin delta stream](ProptechOS-Delta-Stream)
 
 ## Edge Interface
 Learn about Edge integrations with the [Idun Edge Interface and sample Connector](ProptechOS-Edge-Interface).  
