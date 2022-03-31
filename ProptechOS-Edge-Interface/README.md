@@ -31,7 +31,7 @@ The intention of this guide is to help a developer to get started developing an 
 
 ProptechOS is built using the Microsoft suite of underlying IoT technologies. Hence, a RealEstateCore edge connector for ProptechOS sends RealEstateCore edge messages using a client compatible with the Microsoft IoT Hub. The easiest way to get started is to use the Microsoft IoT Hub Client, which is what this guide describes.
 
-As added illustrations for the guide, we have built a simple example Edge Connector, ProptechOS-REC-connector (see [the Edge Interface example folder](examples)). Have a look and compare the example code with the description in this guide.
+As added illustrations for the guide, we have built a simple example Edge Connector, ProptechOS-REC-connector (see [the Edge Interface examples](https://github.com/idun-corp/Idun-Examples/blob/master/ProptechOS-Edge-Interface/examples)). Have a look and compare the example code with the description in this guide.
 
 ## Edge Connector development
 
@@ -220,7 +220,7 @@ Those are RealEstateCore messages that are sent from the Edge Connector to Propt
 ### ProptechOS receiving observations
 Now we need to see if those simulated observations are actually received by ProptechOS.
 
-First authorize ProptechOS REST API, see [ProptechOS-Api Example](ProptechOS-Api) for directions on how to do that.  
+First authorize ProptechOS REST API, see [ProptechOS-Api](../ProptechOS-Api) for directions on how to do that.  
 To verify that Observations from the simulated device are received, we need to see them in the ProptechOS API.
 
 ```curl
@@ -394,36 +394,5 @@ Import the project folder you just created with project files to your IDE as a M
 Note that versions of dependencies above are the last stable versions at the time of writing this documentation. You can check if there are newer versions of those libraries and use them.
 
 ## Implemented Edge Connectors
-All of the connectors below consume data from underlying systems, transforms received data to RealEstateCore format messages,
-and sends them to ProptechOS. For some connectors reverted flow is possible,
-connector receives messages from ProptechOS and transforms it to s message that the underlying system can process(Actuations). See availability in table 
-
-``
-
-| Module name   | Description                                                                    | Status      | Observations | Actuations | 
-| ------------- | ------------------------------------------------------------------------------ | ----------- | ------------ | ---------- |
-| EMU           | Interacting with EMU Professional TCP/IP devices. Http client based            | Available   |     Yes      |     No     |
-| Lummelunda | Module for interacting with Lummelunda Web API. Http client based, establishes sessions using server URL and auth credentials  | Available   |     Yes      |     No     |
-| Kabona        | Communicate with Scada Kabona API. Http client based, establishes sessions using server URL and auth credentials. | Available   |     Yes      |     Yes    |
-| LoRaWAN       | Interacting with LoRaWAN Event hub. Subscribes to Azure Event Hub messages.    | Available   |     Yes      |     No     |
-| Mestro        | Interacting with Mestro API(1.2.0). Http client based, establishes sessions using server URL and auth credentials.    | Available |     No       |     No     |
-| Metry         | Interacting with Metry API. Http client based, establishes sessions using server URL and access token.  | Available   |     Yes      |     No     |
-| Modbus        | Interacting with Bastec devices by using Modbus TCP. Uses Modbus client from modbus-master-tcp java library. | Available   |     Yes      |     Yes    |
-| OPC UA        | Interacting with OPC UA Servers. Http client based, establishes sessions using server URL and auth credentials. | Available   |     Yes      |     Yes    |
-| Schneider     | Mqtt client which is connected to Schneider system mqtt broker.                | Available   |     Yes      |     Yes    |
-| SMHI          | Interacting with SMHI API. Supported device types are FORECAST and ANALYSIS. Http client based  | Available   |     Yes      |     No     |
-| Web Port      | Communicate with Wep Port API. Http client based, establishes sessions using server URL and auth credentials.  | Available   |     Yes      |     Yes    |
-| Larmia        | Partner module.                                                                | Available   |     Yes      |      Yes   |
-| Nordomatic    | Partner module for styrportalen.                                               | In progress |     Yes      |    Yes     |
-| ERTEK         | Partner module for PLCs.                                                       | In progress |     Yes      |    Yes     |
-| eSys          | Partner module for meters (m-bus)                                              | In progress |     Yes      |    No      |
-| Flowity       | Partner module for camera and ML-based presence analysis.                      | In progress |     Yes      |    No      |
-| Talkpool      | Partner module.                                                                | In progress |     Yes      |    No      |
-| Disruptive Technologies  | Generates JWT access token and subscribes to disruptive API Server Sent Events, SSE, for all devices in config file(api limit is 50 active :stream connections per user or service-account)  | Available |     Yes      |    No      |
-| Helvar        | Interacting with Helvar API. Http client based, establishes sessions using server URL and api key.                                                                               | Available |     Yes      |    No      |
-| Freesi        | Interacting with Freesi REST API. Http client based, establishes sessions using server URL and cookie provided by API.                                                                             | Available |     Yes      |    No      |
-| Treon         | Interacting with YIT Event hub. Subscribes to Azure Event Hub messages using kafka client                                                                               | Available |     Yes      |    No      |
-| Integral      | Interacting with YIT Event hub. Subscribes to Azure Event Hub messages using kafka client                                                                              | Available |     Yes      |    No      |
-| Haltian       | Mqtt client which is connected to Haltian system mqtt broker.                                                                                | Available |     Yes      |    No      |
-| UbiqiSense    | Camera and ML based presence analysis. Interacting with UbiqiSense API. Http client based, establishes sessions using server URL and access token.                                        | Available |     Yes      |    No      |
-| Cisco         | Camera and ML based presence analysis.                                         | In progress |     Yes      |    No      |
+All of the connectors consume data from underlying systems, transforms received data to RealEstateCore format messages,
+and sends them to ProptechOS. For some connectors, the reverted flow is possible: connector receives messages from ProptechOS and transforms it to an Actuation message that the underlying system can. See [Avalable Connectors](List-of-Available-Connectors)
