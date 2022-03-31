@@ -14,7 +14,7 @@ In summary:
 * the **kafka _'sasl.password'_** property should be set to **_'\<the connection string\>'_**
 
 ## Example
-See a full working example: [Java Spring ProptechOS Streaming API consumer](examples/java).
+See a full working example: [Java Spring ProptechOS Streaming API consumer](https://github.com/idun-corp/Idun-Examples/blob/master/ProptechOS-Streaming-Api/examples/java).
 
 
 ## The Idun ProptechOS Stream message:
