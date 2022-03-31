@@ -2,7 +2,7 @@
 ![ProptechOS logo](images/ProptechOS-logotype-ex.png)
 
 # ProptechOS Developer Documents
-
+![ProptechOS arch](images/p8s_overview.png)
 
 ## API
 The streaming API lets you explore and edit the knowledge graph, query telemetry and execute actuations.  
