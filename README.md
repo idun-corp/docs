@@ -2,6 +2,9 @@
 ![ProptechOS logo](images/ProptechOS-logotype-ex.png)
 
 # ProptechOS Developer Documents
+
+For examples, see our separate `examples` repo [github.com/idun-corp/Idun-Examples](https://github.com/idun-corp/Idun-Examples)
+
 ![ProptechOS arch](images/p8s_overview.png)
 
 ## API
