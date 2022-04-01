@@ -1,17 +1,7 @@
 # Delta Stream
 The intention of Delta Stream is to notify subscribers about each change in Digital Twin graph of ProptechOS. ProptechOS Delta Stream is delivered via Azure EventHub, and can be consumed via a Kafka Consumer .
-## Kafka Client
-See [Apache - Kafka clients](https://cwiki.apache.org/confluence/display/KAFKA/Clients) and [Apache - Kafka quickstart](https://kafka.apache.org/quickstart) for general information on Kafka and Kafka consumers.  
-See the Quickstart tutorials at [Github - Azure eventhubs for kafka](https://github.com/Azure/azure-event-hubs-for-kafka/) for the specifics of consuming Azure Eventhub via the Kafka protocol.
-
-The Microsoft docs resource at [event hubs for kafka ecosystem overview](https://docs.microsoft.com/sv-se/azure/event-hubs/event-hubs-for-kafka-ecosystem-overview) will give an overview of translating Eventhub concepts to Kafka concepts.
-
-In summary:
-* kafka topic translates to EventHub
-* the **kafka _'bootstrap.servers'_** translates to **EventHub namespace** path (e.g. sb://idun-myproptechos-eventhubs-streamingapi.servicebus.windows.net/)
-* the **kafka _'ssl.ca'_** property should be set to **_'SASL_SSL'_**
-* the **kafka _'sasl.username'_** property should be set to **_'$ConnectionString'_** (literally)
-* the **kafka _'sasl.password'_** property should be set to **_'\<the connection string\>'_**
+## Consuming the stream
+The Delta stream is using the same stream implementation as the general stream, so refer to [ProptechOS-Streaming-Api docs for details](../ProptechOS-Streaming-Api).
 
 ## Example
 See a full working example: [Java Spring ProptechOS Streaming API consumer](examples/java).
