@@ -25,7 +25,7 @@ See a full working example: [Java Spring ProptechOS Streaming API consumer](exam
 }
 ```
 ### Where:
-* **iris** - the array of affected digital twin URIs;
+* **iris** - array of affected twin IRIs (a URI is a kind of IRI);
 * **operation** - the operation that was executed (possible values: _'CREATE'_, _'UPDATE'_, _'DELETE'_)
 
 ## Proprietary Microsoft Eventhub client
