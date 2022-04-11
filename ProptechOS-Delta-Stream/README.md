@@ -10,8 +10,9 @@ See a full working example: [Java Spring ProptechOS Streaming API consumer](exam
 
 ```json
 {
-"iris" : ["https://proptechos.com/api/sensor/0234c884-f8dc-48d6-b627-2f0d8f8705d6"],
-"operation": "CREATE"
+  "iris" : ["https://proptechos.com/api/sensor/0234c884-f8dc-48d6-b627-2f0d8f8705d6"],
+  "operation": "CREATE",
+  "operationCompleteTime": "2022-03-24T21:26:14.219Z"
 }
 ```
 ### Where:
@@ -49,6 +50,7 @@ Each endpoint accepts a mandatory path parameter `id` - twin id and two optional
     "agent": "test@company.com",
     "snapshot": {
       "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "createdTime": "2022-03-24T21:26:13.434Z",
       "hasAlias": [
         {
           "id": "string",
@@ -59,10 +61,18 @@ Each endpoint accepts a mandatory path parameter `id` - twin id and two optional
       "littera": "string",
       "popularName": "string",
       "class": "RealEstate",
-      "ownedBy": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "ownedBy": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
     }
 
   }
 ]
 ```
+
+# Delta Stream and Twin timestamp comparison
+* Twin properties `createdTime`/`updatedTime` - indicates timestamp when corresponding operation with the twin **was initiated** on the server side.
+* Delta Stream message property `operationCompleteTime` and Delta Trail record property `snapshotTime` - indicates timestamp when mutation operation over the twin **was finished**.
+
+Possible mutation operations: _'CREATE'_, _'UPDATE'_, _'DELETE'_.
+
+Though `operationCompleteTime`/`snapshotTime` differs from `createdTime`/`updatedTime` and is greater.
 
