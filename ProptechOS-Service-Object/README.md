@@ -519,7 +519,7 @@ Alias Namespace in ProptechOS:
   "tags": {
     "customSeverify": "10",
     "threshold": "25°C",
-    "description": "Alert was trigered programmatically"
+    "description": "Alert was triggered programmatically"
   }
 },
 ```
