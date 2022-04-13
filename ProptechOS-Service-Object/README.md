@@ -24,7 +24,7 @@ about [ProptechOS Alerts](/proptechOS/alerts/README.md)
 
 ### Route
 
-Routes provide the ability to specify which service objects should be dispatched by selected dispatchers. Therefore, the dispatcher itself is configured once with required/sensitive information, and then routing is responsible for leveraging how many service objects should be dispatched. Routing can be updated multiple times without the need to re-configure dispatcher information.
+Routes provide the ability to specify which service objects should be dispatched by selected dispatchers and under what conditions (when it is created, modified or deleted). Therefore, the dispatcher itself is configured once with required/sensitive information, and then routing is responsible for leveraging how many service objects should be dispatched. Routing can be updated multiple times without the need to re-configure dispatcher information.
 
 ### Dispatcher
 
@@ -47,7 +47,7 @@ debug information to analyze unhealthy behavior of 3-party service.
 
 ### Processing pipeline
 
-Every ServiceObject goes into a dispatching queue after creation, where routing is taken into account. Router gathers all available routes and tests each service object in the queue by the route filter specified during route creation.
+Every ServiceObject goes into a dispatching queue after creation, modification or deletion, where routing configuration is taken into account. Router gathers all available routes and tests each service object in the queue by the route filter specified during route creation.
 
 If there is a match, the router puts the ServiceObject into a dedicated dispatching queue, therefore malfunctioning dispatcher won't affect other dispatchers and each dispatcher will have their own dispatching time, retry on failure and all dispatchers will be processing items in parallel.
 
@@ -57,7 +57,7 @@ If there is a match, the router puts the ServiceObject into a dedicated dispatch
 
 #### Processing pipeline steps
 
-1. ServiceObject is created and put into the routing queue.
+1. ServiceObject is created, modified or deleted and put into the routing queue.
 1. Router picks up a ServiceObject and tests for existing route filters.
 1. ServiceObject put into the specific dispatcher queue(s).
 1. Dedicated Dispatcher picks up ServiceObject and dispatches based on the provided information.
@@ -106,7 +106,7 @@ is always encrypted before it passes to storage devices and is only decrypted on
 ### Working with custom Webhook dispatcher
 
 Custom dispatcher is required when you do an integration with your API
-service. The most common use-case would be the [Webhook](https://sendgrid.com/blog/whats-webhook/) integration. Everytime when ServiceObject is created and route is matched for this item, Webhook dispatcher will try to send `[POST]` request to the specified endpoint with ServiceObject in a request body.
+service. The most common use-case would be the [Webhook](https://sendgrid.com/blog/whats-webhook/) integration. Everytime when ServiceObject is created, modified or deleted and route is matched for this item, Webhook dispatcher will try to send `[POST]` request to the specified endpoint with ServiceObject in a request body. The `"X-Event-Type"` http header contains information about the event that was fired on a service object, can contain such values: `Created`, `Modified` or `Deleted`.
 
 #### Retry policy
 
@@ -170,8 +170,8 @@ Example:
 
 ## Working with Routes
 
-Routes provide ability to filter an ServiceObject creation stream and dispatch with one or more pre-configured dispatchers. The `dispatchers` property in the Route body is a `Map` where `Key` is a Dispatcher identifier and `Value` is an object with additional to a Dispatcher data. Any object must contain the `dispatcherType` property to force
-validity of configuration properties depending of dispatcher type.
+Routes provide ability to filter an ServiceObject creation, modification and deletion stream and dispatch with one or more pre-configured dispatchers. The `dispatchers` property in the Route body is a `Map` where `Key` is a Dispatcher identifier and `Value` is an object with additional to a Dispatcher data. Any object must contain the `dispatcherType` property to force
+validity of configuration properties depending of dispatcher type. The `eventTypes` property is used to specify events in a service objects stream that will be taken into account. Available event types: `Created` (default), `Modified`, `Deleted`.
 
 ### ServiceObject filtering inside Routes
 
@@ -226,6 +226,11 @@ If you want to have `Email` and `SMS` dispatching, simply add another dispatcher
 {
   "name": "Send Email",
   "filter": "true",                             // ServiceObject filter
+  "eventTypes": [                               // Stream events
+    "Created",
+    "Modified",
+    "Deleted"
+  ],                             
   "dispatchers": {
     "5a126627-d640-456b-8d0d-3c99bc965c32": {   // Email dispatcher id
       "emails": [
@@ -244,6 +249,11 @@ If you want to have `Email` and `SMS` dispatching, simply add another dispatcher
 {
   "name": "Send Email and SMS",
   "filter": "aliases/any(alias: alias eq 'http://.../001')", // ServiceObject filter
+  "eventTypes": [                               // Stream events
+    "Created",
+    "Modified",
+    "Deleted"
+  ],  
   "dispatchers": {
     "5a126627-d640-456b-8d0d-3c99bc965c32": {   // Email dispatcher id
       "emails": [
@@ -287,7 +297,7 @@ SMS template example:
 
 ```json
 {
-  "messageTemplate": "{{title}}: {{tags.threshold}} threshold was breached.",
+  "messageTemplate": "ServiceObject with a title: {{serviceObject.title}} has been {{eventType}}.",
   "dispatcherType": "SMS"
 }
 ```
@@ -296,14 +306,17 @@ ServiceObject example:
 
 ```json
 {
-  "title": "Temperature Alert",
-  "tags": {
-    "threshold": "25°C",
-  }
+  "serviceObject": {
+    "title": "Temperature Alert",
+    "tags": {
+      "threshold": "25°C",
+    }
+  },
+  "eventType": "Modified"
 }
 ```
 
-**Result SMS text**: `Temperature Alert: 25°C threshold was breached.`
+**Result SMS text**: `ServiceObject with a title: Temperature Alert has been Modified`
 
 ### Create Route with `Webhook` dispatching
 
@@ -317,6 +330,11 @@ ServiceObject example:
 {
   "name": "Call endpoint",
   "filter": "tags/any(tag: tag/name eq 'Alert'", // ServiceObject filter
+  "eventTypes": [                                // Stream events
+    "Created",
+    "Modified",
+    "Deleted"
+  ],  
   "dispatchers": {
     "<your-dispatcher-id>": {           // Custom Webhook dispatcher id
       "dispatcherType": "Webhook"
