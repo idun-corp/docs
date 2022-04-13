@@ -106,7 +106,7 @@ is always encrypted before it passes to storage devices and is only decrypted on
 ### Working with custom Webhook dispatcher
 
 Custom dispatcher is required when you do an integration with your API
-service. The most common use-case would be the [Webhook](https://sendgrid.com/blog/whats-webhook/) integration. Everytime when ServiceObject is created, modified or deleted and route is matched for this item, Webhook dispatcher will try to send `[POST]` request to the specified endpoint with ServiceObject in a request body. The `"X-Event-Type"` http header contains information about the event that was fired on a service object, can contain such values: `Created`, `Modified` or `Deleted`.
+service. The most common use-case would be the [Webhook](https://sendgrid.com/blog/whats-webhook/) integration. Everytime when ServiceObject is created, modified or deleted and route is matched for this item, Webhook dispatcher will try to send `[POST]` request to the specified endpoint with ServiceObject in a request body. The `"X-Event-Type"` http request header contains information about the event that was fired on a service object, can contain such values: `Created`, `Modified` or `Deleted`.
 
 #### Retry policy
 
@@ -171,7 +171,7 @@ Example:
 ## Working with Routes
 
 Routes provide ability to filter an ServiceObject creation, modification and deletion stream and dispatch with one or more pre-configured dispatchers. The `dispatchers` property in the Route body is a `Map` where `Key` is a Dispatcher identifier and `Value` is an object with additional to a Dispatcher data. Any object must contain the `dispatcherType` property to force
-validity of configuration properties depending of dispatcher type. The `eventTypes` property is used to specify events in a service objects stream that will be taken into account. Available event types: `Created` (default), `Modified`, `Deleted`.
+validity of configuration properties depending of dispatcher type. The `eventTypes` property contains a service object lifecycle events, the service object will be dispatched when any of the defined events occur. Available event types: `Created` (default), `Modified`, `Deleted`.
 
 ### ServiceObject filtering inside Routes
 
@@ -226,7 +226,7 @@ If you want to have `Email` and `SMS` dispatching, simply add another dispatcher
 {
   "name": "Send Email",
   "filter": "true",                             // ServiceObject filter
-  "eventTypes": [                               // Stream events
+  "eventTypes": [                               // ServiceObject lifecycle event filter
     "Created",
     "Modified",
     "Deleted"
@@ -249,7 +249,7 @@ If you want to have `Email` and `SMS` dispatching, simply add another dispatcher
 {
   "name": "Send Email and SMS",
   "filter": "aliases/any(alias: alias eq 'http://.../001')", // ServiceObject filter
-  "eventTypes": [                               // Stream events
+  "eventTypes": [                               // ServiceObject lifecycle event filter
     "Created",
     "Modified",
     "Deleted"
@@ -330,7 +330,7 @@ ServiceObject example:
 {
   "name": "Call endpoint",
   "filter": "tags/any(tag: tag/name eq 'Alert'", // ServiceObject filter
-  "eventTypes": [                                // Stream events
+  "eventTypes": [                                // ServiceObject lifecycle event filter
     "Created",
     "Modified",
     "Deleted"
