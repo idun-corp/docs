@@ -152,7 +152,7 @@ Instead, let's say you want to find a presence sensor in a room, based only on y
 
 ```
 // line breaks for clarity
-GET https://foo.proptechos.com/api/sensor?
+GET https://foo.proptechos.com/api/room?
 alias_ids=https%3A%2F%2Fmysystem.com%2Froom%2F40b9c6a8-e738-4da8-a2e1-e661e1977e7a
 &page=0
 &size=1
