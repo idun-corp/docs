@@ -24,7 +24,7 @@ about [ProptechOS Alerts](/proptechOS/alerts/README.md)
 
 ### Route
 
-Routes provide the ability to specify which service objects should be dispatched by selected dispatchers and under what conditions (when it is created, modified or deleted). Therefore, the dispatcher itself is configured once with required/sensitive information, and then routing is responsible for leveraging how many service objects should be dispatched. Routing can be updated multiple times without the need to re-configure dispatcher information.
+Routes provide the ability to specify which ServiceObjects should be dispatched by selected dispatchers and under what conditions (when it is created, modified or deleted). Therefore, the dispatcher itself is configured once with required/sensitive information, and then routing is responsible for leveraging how many ServiceObjects should be dispatched. Routing can be updated multiple times without the need to re-configure dispatcher information.
 
 ### Dispatcher
 
@@ -34,7 +34,7 @@ Some dispatchers are provided by ProptechOS as a service: Email, SMS, so clients
 
 #### Dispatcher types
 
-ServiceObject API develops integration with different dispatcher types and the list of supported types will grow in the future. Clients that want to create an instance of a dispatcher have to submit a request with required information depending on the type of the dispatcher and then set up routing for ServiceObjects that will instruct the dispatcher which service objects should be dispatched by them. One ServiceObject could be dispatched by multiple dispatchers and a single dispatcher can dispatch multiple service objects.
+ServiceObject API develops integration with different dispatcher types and the list of supported types will grow in the future. Clients that want to create an instance of a dispatcher have to submit a request with required information depending on the type of the dispatcher and then set up routing for ServiceObjects that will instruct the dispatcher which ServiceObjects should be dispatched by them. One ServiceObject could be dispatched by multiple dispatchers and a single dispatcher can dispatch multiple ServiceObjects.
 
 ### Dispatch Log
 
@@ -47,7 +47,7 @@ debug information to analyze unhealthy behavior of 3-party service.
 
 ### Processing pipeline
 
-Every ServiceObject goes into a dispatching queue after creation, modification or deletion, where routing configuration is taken into account. Router gathers all available routes and tests each service object in the queue by the route filter specified during route creation.
+Every ServiceObject goes into a dispatching queue after creation, modification or deletion, where routing configuration is taken into account. Router gathers all available routes and tests each ServiceObject in the queue by the route filter specified during route creation.
 
 If there is a match, the router puts the ServiceObject into a dedicated dispatching queue, therefore malfunctioning dispatcher won't affect other dispatchers and each dispatcher will have their own dispatching time, retry on failure and all dispatchers will be processing items in parallel.
 
@@ -80,7 +80,7 @@ You need to have ProptechOS account in order to make authorized requests to this
 1. Leave "client_id" field empty and click the "select all" scopes link at the bottom
 1. Click "Authorize"
 
-![Service Object API authorization](./assets/api/service-object-api-authorize.gif)
+![ServiceObject API authorization](./assets/api/service-object-api-authorize.gif)
 
 ## Working with Dispatchers
 
@@ -106,7 +106,7 @@ is always encrypted before it passes to storage devices and is only decrypted on
 ### Working with custom Webhook dispatcher
 
 Custom dispatcher is required when you do an integration with your API
-service. The most common use-case would be the [Webhook](https://sendgrid.com/blog/whats-webhook/) integration. Everytime when ServiceObject is created, modified or deleted and route is matched for this item, Webhook dispatcher will try to send `[POST]` request to the specified endpoint with ServiceObject in a request body. The `"X-Event-Type"` http request header contains information about the event that was fired on a service object, can contain such values: `Created`, `Modified` or `Deleted`.
+service. The most common use-case would be the [Webhook](https://sendgrid.com/blog/whats-webhook/) integration. Everytime when ServiceObject is created, modified or deleted and route is matched for this item, Webhook dispatcher will try to send `[POST]` request to the specified endpoint with ServiceObject in a request body. The `"X-Event-Type"` http request header contains information about the event that was fired on ServiceObject, can contain such values: `Created`, `Modified` or `Deleted`.
 
 #### Retry policy
 
@@ -166,12 +166,12 @@ Example:
 }
 ```
 
-![Service Object API - Create Webhook Dispatcher](./assets/api/dispatchers/service-object-dispatchers-webhook.gif)
+![ServiceObject API - Create Webhook Dispatcher](./assets/api/dispatchers/service-object-dispatchers-webhook.gif)
 
 ## Working with Routes
 
 Routes provide ability to filter an ServiceObject creation, modification and deletion stream and dispatch with one or more pre-configured dispatchers. The `dispatchers` property in the Route body is a `Map` where `Key` is a Dispatcher identifier and `Value` is an object with additional to a Dispatcher data. Any object must contain the `dispatcherType` property to force
-validity of configuration properties depending of dispatcher type. The `eventTypes` property contains a service object lifecycle events, the service object will be dispatched when any of the defined events occur. Available event types: `Created` (default), `Modified`, `Deleted`.
+validity of configuration properties depending of dispatcher type. The `eventTypes` property contains ServiceObject lifecycle events, ServiceObject will be dispatched when any of the defined events occur. Available event types: `Created` (default), `Modified`, `Deleted`.
 
 ### ServiceObject filtering inside Routes
 
