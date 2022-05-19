@@ -30,8 +30,8 @@ An example of how to use it can be found in the **[authentication/examples folde
 
 ```
 // Line breaks for legibility only
-GET  https://login.microsoftonline.com/d4218456-670f-42ad-9f6a-885ae15b6645/oauth2/v2.0/authorize?
-client_id={ client id}
+GET  https://proptechos.b2clogin.com/0182be13-23bf-45ec-a6de-054f50a9a0c0/b2c_1a_signin/oauth2/v2.0/authorize?
+client_id={ client id }
 &response_type=id_token
 &redirect_uri=http%3A%2F%2myApp.com%2Fmyredirectendpoint%2F
 &scope=Api.Use
@@ -41,7 +41,7 @@ client_id={ client id}
 ```
 
 important to note:
-* tenant: this URL is for the Idun ProptechOS tenant (d4218456-670f-42ad-9f6a-885ae15b6645)
+* tenant: this URL is for the Idun ProptechOS tenant (0182be13-23bf-45ec-a6de-054f50a9a0c0)
 * client_id: ID of the application, obtained after Application registration by Idun **Replace wiht your client id**
 * redirect_uri: upon Applicaiton registration for the implicit auth flow you will state your redirect uri. **Replace myapp.com/myredirectendpoint with your redirect endpoint**
 
@@ -58,7 +58,7 @@ is directly using HTTP POST method on Microsoft authentication endpoint.
 
 ```
 //Line breaks for clarity
-POST https://login.microsoftonline.com/d4218456-670f-42ad-9f6a-885ae15b6645/oauth2/v2.0/token?
+POST https://login.microsoftonline.com/0182be13-23bf-45ec-a6de-054f50a9a0c0/oauth2/v2.0/token?
 client_id={ client ID }
 &client_secret={ client secret }
 &scope=https%3A%2F%2Fmyinstance.proptechos.com%2Fapi%2F.default
@@ -66,7 +66,7 @@ client_id={ client ID }
 ```
 
 important to note:
-* tenant: this URL is for the Idun ProptechOS tenant (d4218456-670f-42ad-9f6a-885ae15b6645)
+* tenant: this URL is for the Idun ProptechOS tenant (0182be13-23bf-45ec-a6de-054f50a9a0c0)
 * client_id: ID of the application, obtained after Application registration by Idun. **Replce with your client id**
 * client_secret: also generated after Application registration by Idun **Replace with your client secret**
 * scope: Stae the ProptechOS API as scope. **Replace _'myinstance'_ with your the instance of ProptechOS your application is calling**
