@@ -48,6 +48,8 @@ The connectors below use the ProptechOS edge interface and translate the data of
 | Integral   | Connector for Integrals API.  | Bronze  | In progress | :heavy_check_mark:, :heavy_minus_sign:  |:heavy_check_mark: | Cloud |
 | Lummelunda    | Partner connector for [Lummelunda](https://lummelunda.tech/) IoT devices. | Gold   | Available |     :heavy_check_mark:, :heavy_minus_sign:      |     :heavy_check_mark:     | Partner hosted |
 | Lummelunda (obsolete) | Connector for interacting with [Lummelunda](https://lummelunda.tech/) Web API. Http client based, establishes sessions using server URL and auth credentials  | Bronze | Available   |     :heavy_check_mark:, :heavy_minus_sign:     |     :heavy_check_mark:     | Partner hosted |
+| Netmore      | Partner connector for [Netmore](https://netmoregroup.com/) IoT devices. | Gold   | In progress |     :heavy_check_mark:, :heavy_minus_sign:      |     :heavy_check_mark:     | Partner hosted |
+| Neuron Sensors      | Partner connector for [NeuronSensors](https://neuronsensors.app/) IoT devices. | Bronze   | Available |     :heavy_check_mark:, :heavy_minus_sign:      |     :heavy_check_mark:     | Cloud |
 | Talkpool      | Partner connector for [Talkpool](https://talkpool.com/) IoT devices. | Gold   | Available |     :heavy_check_mark:, :heavy_minus_sign:      |     :heavy_minus_sign:     | Partner hosted |
 | Treon         | Conenctor translating IDs and format to RealEstateCore Edge Message. | Bronze | Available |     :heavy_check_mark:, :heavy_minus_sign:      |     :heavy_minus_sign:     | Cloud |
 | UbiqiSense    | Connector for [UbiqiSense](https://www.ubiqisense.com/) API, camera and ML based presence analysis. Establishes sessions using server URL and access token. | Bronze | Available |     :heavy_check_mark:, :heavy_minus_sign:      |     :heavy_minus_sign:     | Cloud |
@@ -55,19 +57,22 @@ The connectors below use the ProptechOS edge interface and translate the data of
 ### Metering, Media and Utility
 | Name          | Description                                                                    | Partner level  | Availability    | Observation, Actuation | Self-Provisioning | Hosting |
 | ------------- | ------------------------------------------------------------------------------ | ------ | --------- | ----------- | ------------ | ------------ |
+| Aalborgforsyning         | Connector for [Aalborgforsyning](https://aalborgforsyning.dk/) API.  | Bronze | Available   |     :heavy_check_mark:, :heavy_minus_sign:     |     :heavy_minus_sign:     | Cloud |
+| Eloverblik         | Connector for [Eloverblik](https://eloverblik.dk/) API.  | Bronze | Available   |     :heavy_check_mark:, :heavy_minus_sign:     |     :heavy_minus_sign:     | Cloud |
 | Elvaco   | Connector for [Elvaco metering products](https://www.elvaco.se/en/) | Bronze  |  Available | :heavy_check_mark:, :heavy_minus_sign: |:heavy_minus_sign: | Cloud |
 | EMU           | Connector for [EMU Professional](https://www.emu-metering.de/) TCP/IP devices. Http client based            | Bronze | Available   |     :heavy_check_mark:, :heavy_minus_sign:     |     :heavy_minus_sign:     | Cloud |
 | eSys          | Partner connector for meters (m-bus) via [eSys product ePort](http://eport.esysab.se/). | Gold   | Available |     :heavy_check_mark:, :heavy_minus_sign:      |     :heavy_check_mark:     | Partner hosted |
 | Fortum        | Connector for [Fortum](https://www.fortum.se/foretag) energy data.  | Bronze  | In Progress  | :heavy_check_mark:, :heavy_minus_sign:  |:heavy_minus_sign: | Cloud |
 | Greenview     | Connector for [Greenview](https://greencon.se/greenview/)  | Gold  | Available  | :heavy_check_mark:, :heavy_minus_sign:  |:heavy_check_mark: | Partner hosted |
 | Mestro        | Connector for [Mestro](https://mestro.com/en/) API(1.2.0). Using server URL and auth credentials.    | Bronze | Available |     :heavy_check_mark:, :heavy_minus_sign:     |     :heavy_minus_sign:     | Cloud |
-| Metry         | Connector for [Metry](https://metry.io/) API. Using server URL and access token.  | Bronze | Available   |     :heavy_check_mark:, :heavy_minus_sign:     |     :heavy_minus_sign:     | Cloud |
+| Metry         | Connector for [Metry](https://metry.io/) API. Using [Metry Stream](https://metry.docs.apiary.io/#reference/streams/consuming-streams/consume-a-consumption-stream).  | Bronze | Available   |     :heavy_check_mark:, :heavy_minus_sign:     |     :heavy_minus_sign:     | Cloud |
 
 
 
 ### Other
 | Name          | Description                                                                    | Partner level  | Availability    | Observation, Actuation | Self-Provisioning | Hosting |
 | ------------- | ------------------------------------------------------------------------------ | ------ | --------- | ----------- | ------------ | ------------ |
+| aedifion          | Connector for [aedifion cloud platform](https://www.aedifion.com/).  | Bronze | Available   |     :heavy_check_mark:, :heavy_minus_sign:     |     :heavy_minus_sign:     | Cloud |
 | Cisco         | Camera and ML based presence analysis.                                         | Bronze | In progress |     :heavy_check_mark:, :heavy_minus_sign:      |     :heavy_minus_sign:     | - |
 | Crestron      | Partner connector for getting telemetry out of [JML](https://jml.se/) Crestron processor.            | Gold   | Available |     :heavy_check_mark:, :heavy_minus_sign:      |     :heavy_check_mark:     | Partner hosted |
 | CTEK        | Partmner connector for [CTEK](https://www.ctek.com/) EV chargers   | Bronze  | In Progress  | :heavy_check_mark:, :heavy_check_mark:  |:heavy_minus_sign: | Cloud |
