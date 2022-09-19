@@ -42,7 +42,7 @@ client_id={ client id }
 
 important to note:
 * tenant: this URL is for the Idun ProptechOS tenant (0182be13-23bf-45ec-a6de-054f50a9a0c0)
-* client_id: ID of the application, obtained after Application registration by Idun **Replace wiht your client id**
+* client_id: ID of the application, obtained after Application registration by Idun **Replace with your client id**
 * redirect_uri: upon Applicaiton registration for the implicit auth flow you will state your redirect uri. **Replace myapp.com/myredirectendpoint with your redirect endpoint**
 
 Read more: [Microsoft Docs - MSAL Authentication Flows Authorization Code](https://docs.microsoft.com/en-us/azure/active-directory/develop/msal-authentication-flows#authorization-code)
@@ -82,9 +82,19 @@ Current version is  '0.5.0-preview'
 Details how to use the lib in the project can be found here:
 https://github.com/AzureAD/microsoft-authentication-library-for-java
 
+## Register an application in ProptechOS
+Registering the applications is done by Idun admin. The request to register an application should be sent to onboarding@proptechos.com. After the application is registered its ID and secret key will be shared via 1Password.
 
 
-### Migration from old Authentication method.
+## Resources
+
+For more information about Microsoft Identity Platform, OAuth2 and MSAL Libraries for different languages, it is recommended to
+visit Microsoft official documentation
+
+```text
+https://docs.microsoft.com/en-us/azure/active-directory/develop/authentication-scenarios
+```
+## Migration from old Authentication method.
 
 In previous version, Idun authentication was done by putting predefined Authorization code into Authorization header.
 In a new version, the procedure is basically the same, the only difference is that the token is not statically defined,
@@ -94,12 +104,3 @@ Also, in case of 'Daemon application', the token refreshment must be coded and d
 Additionally, proper error handling in case the token validation failed, must be performed.
 
 In case of MSAL libraries for Javascript (Angular or other frameworks), the token refreshment is performed by the library itself.
-
-### Resources
-
-For more information about Microsoft Identity Platform, OAuth2 and MSAL Libraries for different languages, it is recommended to
-visit Microsoft official documentation
-
-```text
-https://docs.microsoft.com/en-us/azure/active-directory/develop/authentication-scenarios
-```
