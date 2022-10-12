@@ -48,7 +48,7 @@ The connectors below use the ProptechOS edge interface and translate the data of
 | Integral   | Connector for Integrals API.  | Bronze  | In progress | :heavy_check_mark:, :heavy_minus_sign:  |:heavy_check_mark: | Cloud |
 | Lummelunda    | Partner connector for [Lummelunda](https://lummelunda.tech/) IoT devices. | Gold   | Available |     :heavy_check_mark:, :heavy_minus_sign:      |     :heavy_check_mark:     | Partner hosted |
 | Lummelunda (obsolete) | Connector for interacting with [Lummelunda](https://lummelunda.tech/) Web API. Http client based, establishes sessions using server URL and auth credentials  | Bronze | Available   |     :heavy_check_mark:, :heavy_minus_sign:     |     :heavy_check_mark:     | Partner hosted |
-| Netmore      | Partner connector for [Netmore](https://netmoregroup.com/) IoT devices. | Gold   | In progress |     :heavy_check_mark:, :heavy_minus_sign:      |     :heavy_check_mark:     | Partner hosted |
+| Netmore      | Partner connector for [Netmore](https://netmoregroup.com/) IoT devices. | Gold   | Available |     :heavy_check_mark:, :heavy_minus_sign:      |     :heavy_check_mark:     | Partner hosted |
 | Neuron Sensors      | Partner connector for [NeuronSensors](https://neuronsensors.app/) IoT devices. | Bronze   | Available |     :heavy_check_mark:, :heavy_minus_sign:      |     :heavy_check_mark:     | Cloud |
 | Talkpool      | Partner connector for [Talkpool](https://talkpool.com/) IoT devices. | Gold   | Available |     :heavy_check_mark:, :heavy_minus_sign:      |     :heavy_minus_sign:     | Partner hosted |
 | Treon         | Connenctor translating IDs and format to RealEstateCore Edge Message. | Bronze | Available |     :heavy_check_mark:, :heavy_minus_sign:      |     :heavy_minus_sign:     | Cloud |
