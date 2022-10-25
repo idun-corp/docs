@@ -12,7 +12,7 @@ The streaming API lets you explore and edit the knowledge graph, query telemetry
 [Consuming Idun ProptechOS REST API](ProptechOS-Api)
 
 ### Service Object API
-[Using the Sergvice Object API](ProptechOS-Service-Object)
+[Using the Service Object API](ProptechOS-Service-Object)
 
 ## Streaming API
 The streaming API lets you consume telemetry.  
