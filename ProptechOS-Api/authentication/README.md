@@ -69,7 +69,7 @@ important to note:
 * tenant: this URL is for the Idun ProptechOS tenant (0182be13-23bf-45ec-a6de-054f50a9a0c0)
 * client_id: ID of the application, obtained after Application registration by Idun. **Replce with your client id**
 * client_secret: also generated after Application registration by Idun **Replace with your client secret**
-* scope: * scope: Set the ProptechOS API as scope. **Replace _'myinstance'_ with the instance your application is calling**
+* scope: Set the ProptechOS API as scope. **Replace _'myinstance'_ with the instance your application is calling**
 * grant_type: must be 'client_credentials' (indicates which auth flow).
 
 
