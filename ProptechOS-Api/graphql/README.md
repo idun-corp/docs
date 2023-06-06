@@ -1,7 +1,7 @@
 # GraphQL API (Preview)
 
 **GraphQL** is a query language for APIs and a runtime for fulfilling API queries. GraphQL provides a complete and understandable description of the data in your graph, gives clients the power to ask for exactly what they need and nothing more, makes it easier to evolve APIs over time, and enables powerful developer tools. For more information please visit [GraphQL Page](https://graphql.org/).
-Since this release of ProptechOS you can fetch data via GraphQL API. GraphQL API is available in our Preview API via the new endpoint:
+GraphQL API is available in our Preview API via the new endpoint:
 
 `POST /preview/graphql`
 
