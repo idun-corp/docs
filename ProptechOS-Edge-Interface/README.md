@@ -224,16 +224,19 @@ First authorize ProptechOS REST API, see [ProptechOS-Api](../ProptechOS-Api) for
 To verify that Observations from the simulated device are received, we need to see them in the ProptechOS API.
 
 ```curl
-GET foo.proptechos.com/api/sensor/{mySensorId}/observation
+GET foo.proptechos.com/api/sensor/{mySensorId}/observations
 ```
 
-with `startTime={firstObsTime}` and `endTime={lastObsTime}` in the query string.
+with `startTime={firstObsTime}`, `endTime={lastObsTime}`, `size={size}` and `nextPageToken={nextPageToken}` in the query string.
 
 exchange
 * `{mySensorId}` with your Sensor
 * `{firstObsTime}` with a timestamp´before the first Observation you want to confirm
 * `{lastObsTime}` with a timestamp after the last Observation you want to confirm
 (If `startTime`and `èndTime` is omitted, the API uses the last 24 hrs from _now_ as default.)
+* `size={size}` with number of observations you want to retrieve. Max observation page size is 15 000
+* `nextPageToken={nextPageToken}` can be empty when first request is send. 
+When there is nonNull nextPageToken in response, to retrieve all the data for the period you need to send requests until next page token is null.
 
 following this example:
 
@@ -243,32 +246,39 @@ GET foo.proptechos.com/api/sensor/7ee2dc9e-e9b0-417c-8c28-05cacb6f863e/
 observation?
 startTime=2020-03-27T09%3A12Z
 &endTime=2020-03-27T09%3A15Z
+&size=1000
 ```
 
 You should see your Observations in the response:
 
 ```JSON
-[
+{
+ "last": true,
+ "size": 3,
+ "nextPageToken": null,
+ "previousPageToken": null,
+ "content": [
   {
-    "observationTime": "2020-03-27T09:12:51.687405800Z",
-    "value": 24.221417634196257
+   "observationTime": "2023-08-25T13:37:53.801939Z",
+   "value": 25
   },
   {
-    "observationTime": "2020-03-27T09:12:56.689908600Z",
-    "value": 18.34789332490643
+   "observationTime": "2023-08-25T13:38:08.846785Z",
+   "value": 24
   },
   {
-    "observationTime": "2020-03-27T09:13:01.694385300Z",
-    "value": 20.894724160375738
+   "observationTime": "2023-08-25T13:38:23.855998Z",
+   "value": 22
   }
-]
+ ]
+}
 ```
 
 If  the Observations  match, you have done everything correctly.
 
-An easy way to get authenticated and authorized, and to make the request for /observation/ is to use the Open API Specification Docs, (“Swagger docs”), provided by ProptechOS (see screenshot below).
+An easy way to get authenticated and authorized, and to make the request for /observations/ is to use the Open API Specification Docs, (“Swagger docs”), provided by ProptechOS (see screenshot below).
 
-![GET observations via OAS UI](images/oas-get-observations.png)
+![GET observations via OAS UI](images/oas-get-observations-paged.png)
 
 ### ProptechOS sending actuations
 To send the actuation we need to use the PUT request method.
