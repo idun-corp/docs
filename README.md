@@ -26,6 +26,9 @@ The streaming API lets you consume telemetry.
 Learn about Edge integrations with the [Idun Edge Interface and sample Connector](ProptechOS-Edge-Interface).  
 ProptechOS uses [RealEstateCore Edge messages](https://github.com/RealEstateCore/rec/tree/master/api/edge_messages) and is implemented using [Microsoft Azure IoT Hub](https://azure.microsoft.com/en-us/services/iot-hub/)
 
+## RealEstateCore
+Link to the documentation, guides, and examples for RealEstateCore development: [RealEstateCore SDK](dev.realestatecore.io)
+
 ## Contribute
 
 Read our [Contributing guidance](CONTRIBUTING.md).
