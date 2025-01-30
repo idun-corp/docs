@@ -59,7 +59,7 @@ The most straightforward and universal (language-independent) way for applicatio
 POST https://login.microsoftonline.com/0182be13-23bf-45ec-a6de-054f50a9a0c0/oauth2/v2.0/token?
 client_id={ client ID }
 &client_secret={ client secret }
-&scope=https%3A%2F%2Fmyinstance.proptechos.com%2Fapi%2F.default
+&scope=https://proptechos.onmicrosoft.com/multi/api/.default
 &grant_type=client_credentials
 ```
 
@@ -67,7 +67,7 @@ important to note:
 * tenant: this URL is for the Idun ProptechOS tenant (0182be13-23bf-45ec-a6de-054f50a9a0c0)
 * client_id: ID of the application, obtained after Application registration in ProptechOS. **Replce with your client id**
 * client_secret: also generated after Application registration by Idun **Replace with your client secret**
-* scope: Set the ProptechOS API as scope. **Replace _'myinstance'_ with the instance your application is calling**
+* scope: Set the ProptechOS API as scope.
 * grant_type: must be 'client_credentials' (indicates which auth flow).
 
 
